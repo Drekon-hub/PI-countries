@@ -75,6 +75,25 @@ router.get('/', async (req, res) => {
     return countriesReady
 })
 
+router.get('/:idPais', async (req, res) => {
+    const idPais = req.params.idPais.toUpperCase();
+    // console.log(idPais, "id que traigo de params")
+
+    try {
+        
+        const countryId = await Country.findOne({
+            where: {
+                id: idPais,
+            },  
+            // includes: Activities,
+        })
+        return res.json(countryId)
+    } catch (error) {
+        res.json(error)
+    }
+
+})
+
 
 
 module.exports = router;
