@@ -5,30 +5,25 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('activities', {
 
-    id: {
-        type: DataTypes.STRING(3),
-        unique: true,
-        allowNull: false,
-        primaryKey: true
-    },
-
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        // allowNull: false,
     },
 
-    difficulty: {
-        type: DataTypes.ENUM('1','2','3','4','5'),
-        allowNull: false,
+    difficult: {
+        type: DataTypes.INTEGER,
+        validate: {min: 1, max: 5},
+        // allowNull: false,
     },
     
     duration: {
         type: DataTypes.FLOAT,
+        allowNull: false,
     },
 
     season: {
-        type: DataTypes.ENUM('Summer','fall','winter','spring'),
-        allowNull: false,
-    }
-  });
+        type: DataTypes.ENUM('Summer','Outumn','Winter','Spring'),
+        // allowNull: false,
+    },
+  }, {timestamp: false});
 };  

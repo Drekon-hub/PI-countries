@@ -17,12 +17,12 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
 
-    img : {
+    flags : {
       type: DataTypes.STRING,
       allowNull: false,
     },
 
-    continente: {
+    region: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -34,14 +34,17 @@ module.exports = (sequelize) => {
 
     subregion: {
       type: DataTypes.STRING,
+      allowNull: true,
     },
 
     area : {
-      type: DataTypes.STRING
+      type: DataTypes.FLOAT,
+      allowNull: true,
     },
 
     poblacion: {
       type: DataTypes.INTEGER,
+      allowNull: true,
     },
   });
 };
