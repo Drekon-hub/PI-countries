@@ -7,23 +7,22 @@ module.exports = (sequelize) => {
 
     name: {
         type: DataTypes.STRING,
-        // allowNull: false,
+        
     },
 
     difficult: {
         type: DataTypes.INTEGER,
         validate: {min: 1, max: 5},
-        // allowNull: false,
+        
     },
     
     duration: {
-        type: DataTypes.FLOAT,
-        allowNull: false,
+        type: DataTypes.STRING,
     },
 
     season: {
         type: DataTypes.ENUM('Summer','Outumn','Winter','Spring'),
-        // allowNull: false,
+        
     },
   }, {timestamp: false});
 };  

@@ -12,29 +12,17 @@ const {Country, Activities} = require('../db')
 
 router.get('/', async (req, res) => {
 
-    // const { name } = req.query
-
-    // try{
-    //     let allCountries = await getDbInfo();
-
-    //     if(!allCountries.length) {
-    //         const result = await CountriesDB();
-    //         res.json(result);
-    //     } else {
-    //         if (!name) res.send(allCountries)
-    //         else {
-    //             let countryName = await allCountries.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))
-    //             if (!countryName.length){
-    //                 res.sendStatus(404)
-    //             } else {
-    //                 res.send(countryName)
-    //             }
-    //         }
-    //     }
-    // }
-    // catch(err) {
-    //     res.status(404).json({msg: err})
-    // }
+    const getDbInfo = async () => {
+        return await Country.findAll({
+            include: {
+                model: Activities,
+                attributes: ['name', 'difficult', 'duration', 'season'],
+                through: {
+                    attributes: [],
+                },  
+            }
+        })
+    }
     
     const countriesAPI = await axios.get('https://restcountries.com/v3/all');
     const countriesDB = countriesAPI.data; 
@@ -53,7 +41,7 @@ router.get('/', async (req, res) => {
                 subregion: sub(c.subregion),
                 area: c.area,
                 poblacion: c.population,
-            }
+            }, include : Activities
         })
     })
     
@@ -67,6 +55,7 @@ router.get('/', async (req, res) => {
             subregion: sub(country.subregion),
             area: country.area,
             poblacion: country.population,
+            include : Activities
         }
     });
     // console.log(countriesReady)
@@ -85,7 +74,7 @@ router.get('/:idPais', async (req, res) => {
             where: {
                 id: idPais,
             },  
-            // includes: Activities,
+             include: Activities,
         })
         return res.json(countryId)
     } catch (error) {
@@ -94,6 +83,29 @@ router.get('/:idPais', async (req, res) => {
 
 })
 
+router.get('/', async (req, res) => {
+    
+})
 
+router.post('/activities', async (req,res) => {
+    const { name, difficult, duration, season, countries } = req.body;
+
+    // console.log(countryId, 'id que llega de body')
+    const newActivity = await Activities.create({
+            name, 
+            difficult,
+            duration,
+            season
+    })
+    
+    const activityDb = await Country.findAll({
+        where: {
+            name: countries,  //No me lo toma por el id, pero por el nombre sí. 
+        }
+    })
+    newActivity.addCountry(activityDb)  
+    //   console.log(newActivity);
+    res.json({msg: "Se ha creado la actividad con éxito!!!"})
+})
 
 module.exports = router;
