@@ -28,7 +28,8 @@ router.post('/activities', async (req, res) => {
 
     // transfer
     const country = await Country.findByPk(countryId);
-    await country.addTouristActivity(getId[0].dataValues.id);
+    // await country.addTouristActivity(getId[0].dataValues.id);
+    await country.addTouristActivity(getId);
 
   } catch (error) {
     res.send(error);

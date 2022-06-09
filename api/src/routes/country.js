@@ -5,6 +5,18 @@ const { Op, Country, TouristActivity } = require('../db.js');
 
 const router = Router();
 
+const getDbInfo = async () => {
+    return await Country.findAll({
+          include: { // eagerloading de TouristActivity
+            model: TouristActivity,
+            attributes: [ 'name', 'difficulty', 'duration', 'season',],
+            through: { 
+                attributes: [], 
+                },
+            }
+    })
+}
+
 const getCountries = async () => {
     const response = await axios(`https://restcountries.com/v3/all`)
     const map = await response.data.map(a => {
@@ -17,7 +29,7 @@ const getCountries = async () => {
             subregion: a.subregion,
             area: a.area,
             population: a.population,
-            include: TouristActivity
+            // include: TouristActivity
         }
         return country
     })
@@ -79,13 +91,14 @@ router.get('/countries/:idPais', async (req, res) => {
             where: {
                 id:  idPais.toUpperCase()
             }, 
-            include: [{ // eagerloading de TouristActivity
-                model: TouristActivity,
-                attributes: [ 'name', 'difficulty', 'duration', 'season',],
-                through: { 
-                    attributes: [], 
-                },
-            }] 
+             include: TouristActivity
+            // include: [{ // eagerloading de TouristActivity
+            //     model: TouristActivity,
+            //     attributes: [ 'name', 'difficulty', 'duration', 'season',],
+            //     through: { 
+            //         attributes: [], 
+            //     },
+            // }] 
         })
         if(country) {
             return res.status(200).json(country);
