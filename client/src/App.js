@@ -1,9 +1,14 @@
 import './App.css';
+import {Route} from 'react-router-dom';
+import index from './components/index.jsx';
+import detiles from './components/detiles.jsx';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Countries</h1>
+      <Route exact path="/" component={index}/>
+      <Route exact path="/" component={detiles}/>
     </div>
   );
 }
