@@ -1,14 +1,18 @@
-import './App.css';
+// import './App.css';
+import React from 'react';
 import {Route} from 'react-router-dom';
-import index from './components/index.jsx';
-import detiles from './components/detiles.jsx';
+import LandingPage from './components/LandingPage.jsx';
+import Home from './components/Home.jsx';
+import Activities from './components/Activities.jsx';
+// import Home from './components/home';
 
 
 function App() {
   return (
     <div className="App">
-      <Route exact path="/" component={index}/>
-      <Route exact path="/" component={detiles}/>
+      <Route exact path="/" component={LandingPage}/>
+      <Route exact path="/home" component={Home}/>
+      <Route exact path="/activities" component={Activities}/>
     </div>
   );
 }

@@ -1,14 +1,26 @@
-const initialState  = {
-    allcountries: [],
-    allActivities: [],
-}
+// import { GET_COUNTRIES, GET_ACTIVITIES } from '../actions/actions.js'
 
-const rootReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case "ALLCONTRIES":
-            return {...state, allcountries: action.payload}
-        case "ALLACTIONS":
-            return {...state, allactivities:action.payload}
+const initialState  = {
+    countries : [],
+    allCountries : [],
+    activities: [],
+    allActivities: [],
+    detail: []
+}
+function rootReducer (state = initialState, action) {
+    switch(action.type){
+        case 'GET_COUNTRIES':
+            return {
+                ...state,
+                countries: action.payload,
+                allCountries: action.payload,
+            }
+            case 'GET_ACTIVITIES':
+                return{
+                    ...state,
+                    activities: action.payload,
+                    allActivities: action.payload
+                }
         default:
             return state
         }
