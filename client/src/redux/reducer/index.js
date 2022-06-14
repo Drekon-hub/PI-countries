@@ -21,6 +21,11 @@ function rootReducer (state = initialState, action) {
                     activities: action.payload,
                     allActivities: action.payload
                 }
+            case 'GET_DETAIL':
+                return {
+                    ...state,
+                    detail: action.payload
+                }
         default:
             return state
         }

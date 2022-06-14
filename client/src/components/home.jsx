@@ -1,21 +1,3 @@
-// import React from 'react'
-// import { useEffect, useState } from 'react'
-// import { useDispatch, useSelector } from "react-redux";
-// import { getCountries } from '../redux/actions/actions.js'
-
-// export default function Home () {
-//     const {pais} = useSelector(state => state.countries) 
-//     const dispatch = useDispatch();
-
-//     useEffect (()=>{
-//         dispatch(getCountries());
-//     },[dispatch])
-
-//   return (
-//     <div>home</div>
-//   )
-// }
-
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -32,13 +14,13 @@ export default function Home() {
 
   return (
     <div>
-      <p>༼ つ✿ ◕_◕ ༽つDogs</p>
+      <p>༼ つ✿ ◕_◕ ༽つCountries</p>
 
         {
         pais?.map((d) => {
             return (
               <div>
-              <Link to={'/activities'}>
+              {/* <Link to={`/home/{c.id}`}> el c.id es para clickear y que me lleve al pais como tal.*/}
               <Card
                 key={d.id}
                 id={d.id}
@@ -46,7 +28,7 @@ export default function Home() {
                 flag={d.flag}
                 region={d.region}
               />
-              </Link>
+              {/* </Link> */}
               </div>
             );
           })}

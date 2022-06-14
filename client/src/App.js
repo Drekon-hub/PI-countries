@@ -1,9 +1,10 @@
-// import './App.css';
+import './App.css';
 import React from 'react';
 import {Route} from 'react-router-dom';
 import LandingPage from './components/LandingPage.jsx';
 import Home from './components/Home.jsx';
 import Activities from './components/Activities.jsx';
+import CountryDetail from './components/CountryDetail';
 // import Home from './components/home';
 
 
@@ -13,6 +14,7 @@ function App() {
       <Route exact path="/" component={LandingPage}/>
       <Route exact path="/home" component={Home}/>
       <Route exact path="/activities" component={Activities}/>
+      <Route path='/home/:id' component={CountryDetail}/>
     </div>
   );
 }

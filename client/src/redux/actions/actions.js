@@ -10,6 +10,21 @@ export function getCountries(){
     }
 }
 
+export function getDetail(id){
+    return async function (dispatch){
+        try {
+            var json = await axios.get(`http://localhost:3001/countries/${id}`)
+            return dispatch({
+                type: 'GET_DETAIL',
+                payload: json.data
+            })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+}
+
+
 // export function getActivities(){
 //     return async function (dispatch){
 
@@ -17,4 +32,4 @@ export function getCountries(){
 // }
 
 // export const GET_COUNTRIES = "GET_COUNTRIES"; //todos los paises
-export const GET_ACTIVITIES = "GET_ACTIVITIES"; //todas las actividades que voy creando
+// export const GET_ACTIVITIES = "GET_ACTIVITIES"; //todas las actividades que voy creando
