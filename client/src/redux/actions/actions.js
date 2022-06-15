@@ -24,6 +24,19 @@ export function getDetail(id){
     }
 }
 
+export function countrySearchBar(name){
+    return async function (dispatch){
+        try {
+            var json = await axios.get(`http://localhost:3001/countries?name=${name}`)
+            return dispatch({
+                type: 'GET_COUNTRY_SEARCH',
+                payload: json.data
+            })
+        } catch (error) {
+            alert("No existe dicho pais...")
+        }
+    }
+}
 
 // export function getActivities(){
 //     return async function (dispatch){

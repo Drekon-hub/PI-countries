@@ -55,7 +55,7 @@ export default function Detail(props) {
 
                             <div>
                                 <h1>Area</h1>
-                                <h4 key= {theCountry.area}>{theCountry.area}</h4>
+                                <h4 key= {theCountry.area}>{theCountry.area}km2</h4>
                             </div>
 
                             <div>
@@ -67,6 +67,48 @@ export default function Detail(props) {
                     :
                     <p>Loading...</p>
                 }
+            </section>
+
+            <section>
+                <h1>Actividades</h1>
+                {theCountry.name && (
+                    <div>
+                        <section>
+                            <div>
+                                {theCountry.TouristActivities &&(
+                                    theCountry.TouristActivities.map((act) =>(
+                                        <div key = {act.name}>
+                                            <div>
+                                                <h3 key = {act.name}>
+                                                    ACTIVIDAD: {act.name}
+                                                </h3>
+                                            </div>
+
+                                            <div>
+                                                <h3 key = {act.difficulty}>
+                                                    DIFICULTAD: {act.difficulty}
+                                                </h3>
+                                            </div>
+
+                                            <div>
+                                                <h3 key = {act.name + '.'}>
+                                                    DURACIÓN: {act.duration}
+                                                </h3>
+                                            </div>
+
+                                            <div>
+                                                <h3 key = {act.season}>
+                                                    TEMPORADA: {act.season}
+                                                </h3>
+                                            </div>
+
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+                        </section>
+                    </div>
+                )}
             </section>
         </div>
     )

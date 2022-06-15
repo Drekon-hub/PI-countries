@@ -26,6 +26,11 @@ function rootReducer (state = initialState, action) {
                     ...state,
                     detail: action.payload
                 }
+            case 'GET_COUNTRY_SEARCH':
+                return{
+                    ...state,
+                    countries: action.payload,
+                }
         default:
             return state
         }
