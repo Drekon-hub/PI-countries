@@ -1,0 +1,12 @@
+nav{
+    display: flex;
+    justify-content: center;
+}
+
+.container_page {
+    display: flex;
+    
+}
+.container_page li {
+    list-style: none;
+}

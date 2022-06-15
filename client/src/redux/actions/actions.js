@@ -38,6 +38,13 @@ export function countrySearchBar(name){
     }
 }
 
+export function postActivities(payload){
+    return async function (dispatch){
+        const data = await axios.post('http://localhost:3001/activities',payload);
+        return data;
+    }
+}
+
 // export function getActivities(){
 //     return async function (dispatch){
 

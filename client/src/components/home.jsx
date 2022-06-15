@@ -1,4 +1,5 @@
 import React from "react";
+import './Home.css'
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,18 +27,18 @@ export default function Home() {
   
   const lastCountry = currentPage * countries
   const firstCountry = lastCountry - countries
-  const currentCountries = pais.slice(firstCountry, lastCountry);
-
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber)
+  const country = pais.slice(firstCountry, lastCountry);
+  
+  const paginado = (num) => {
+    setCurrentPage(num)
   }
   
-  const firstPage = (currentPage) => {
-    setCurrentPage(currentPage - 1)
+  const firstPage = () => {
+    setCurrentPage(1)
   }
 
   const lastPage = (currentPage) => {
-    setCurrentPage(currentPage = (Math.floor(pais.length/countries)))
+    setCurrentPage(currentPage = (Math.ceil(pais.length/countries)))
   }
 
   const prevPage = () => {
@@ -45,7 +46,7 @@ export default function Home() {
   }
 
   const nextPage = () => {
-    if (currentPage < (Math.floor(pais.length/countries))) setCurrentPage(currentPage+1) 
+    if (currentPage < (Math.ceil(pais.length/countries))) setCurrentPage(currentPage+1) 
   }
 
   return (
@@ -61,8 +62,10 @@ export default function Home() {
         prevPage={prevPage}
         nextPage={nextPage}
       />
+      <p><strong>Estás en la página: "{currentPage}"</strong></p>
+      <div className="container_cards">
         {
-        pais?.map((d) => {
+        country?.map((d) => {
             return (
               <div>
               {/* <Link to={`/home/{c.id}`}> el c.id es para clickear y que me lleve al pais como tal.*/}
@@ -77,6 +80,7 @@ export default function Home() {
               </div>
             );
           })}
+          </div>
         <Paginado
           countries={countries}
           pais={pais.length}
