@@ -13,8 +13,8 @@ export default function Paginado ({pais,countries, country, paginado, lastPage, 
         <div>
             <nav>
                 <ul className="container_page">
-                    <button onClick = { () => firstPage() }> Primera </button>
-                    <button onClick = { () => prevPage() }> Anterior </button>
+                    <button onClick = { () => firstPage() }> ◄◄ </button>
+                    <button onClick = { () => prevPage() }> ◄ </button>
 
                     {
                         pageNumbers &&
@@ -26,8 +26,8 @@ export default function Paginado ({pais,countries, country, paginado, lastPage, 
                         ))
                     }
 
-                    <button onClick = { () => nextPage() }> Siguiente </button>
-                    <button onClick = { () => lastPage() }> Última  </button>
+                    <button onClick = { () => nextPage() }> ► </button>
+                    <button onClick = { () => lastPage() }> ►►  </button>
                 </ul>
             </nav>
         </div>

@@ -67,14 +67,14 @@ export default function Home() {
         {
         country?.map((d) => {
             return (
-              <div>
+              <div className="card">
               {/* <Link to={`/home/{c.id}`}> el c.id es para clickear y que me lleve al pais como tal.*/}
               <Card
                 key={d.id}
                 id={d.id}
                 name={d.name}
                 flag={d.flag}
-                region={d.region}
+                continent={d.continent}
               />
               {/* </Link> */}
               </div>

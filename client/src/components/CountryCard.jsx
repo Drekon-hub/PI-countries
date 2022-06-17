@@ -1,17 +1,25 @@
-
 import React from 'react';
 import { Link } from "react-router-dom";
+import './CountryCard.css'
 
-export default function Card({flag,name,region,id}) {
+export default function Card({flag,name,continent,id}) {
 
     return(
-        <div class='card-container'>
-            <Link to={`/home/${id}`}>
-            <img src={flag} alt="Country"/>
-            <h3>{name}</h3><br/>
-            <span>{region}</span>
-            <p>{id}</p>
+        <div className="container2">
+            <Link  to={`/home/${id}`}>
+            <img className="flag" src={flag} alt="Country"/>
             </Link>
+                <div className="container">
+            <Link to={`/home/${id}`}>
+                        <div className='container'>
+                            <div>
+                                <h3>║{name}║</h3>
+                                <h5>║{continent}║</h5>
+                            </div>
+                            
+                        </div>
+                    </Link>
+                </div>
         </div>    
         )
 }

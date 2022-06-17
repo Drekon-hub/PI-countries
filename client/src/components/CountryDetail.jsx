@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../redux/actions/actions.js";
 import { useEffect } from "react";
+import './CountryDetail.css'
 
 export default function Detail(props) {
     const dispatch  = useDispatch()
@@ -15,7 +16,7 @@ export default function Detail(props) {
     // console.log(theCountry)
 
     return (
-        <div>
+        <div className="bigDetail">
             <section>
                 <Link to='/home'>
                     <button>Volver</button>
@@ -25,42 +26,29 @@ export default function Detail(props) {
             <section>
                 {
                     theCountry.name ?
+                    <div className="carad">
+                        <div>
+                            <h1 key = {theCountry.name}>
+                                {theCountry.name}
+                            </h1>
+                        </div>
                     <div>
-                        <img src={theCountry.flag} alt="Not found"/>
+                        <img src={theCountry.flag} alt="Not found" width="300px" height="200px"/>
+                    </div>
 
                         <section>
-                            <div>
-                                <h1 key = {theCountry.name}>
-                                    {theCountry.name}
-                                </h1>
-                                <h1 key = {theCountry.id}>
-                                    ({theCountry.id})
-                                </h1>
-                            </div>
+                            <div className="containerr">
+                                <h2 className="titleCapitalized" key = {theCountry.id}>({theCountry.id})</h2>
 
-                            <div>
-                                <h1>Capital</h1>
-                                <h4 key = {theCountry.capital}>{theCountry.capital}</h4>
-                            </div>
+                                <h2 className="titleCapitalized" key = {theCountry.capital}>Capital: {theCountry.capital}</h2>
 
-                            <div>
-                                <h1>Continente</h1>
-                                <h4 key = {theCountry.continent}>{theCountry.continent}</h4>
-                            </div>
+                                <h2 className="titleCapitalized" key = {theCountry.continent}>Continente: {theCountry.continent}</h2>
 
-                            <div>
-                                <h1>Subregion</h1>
-                                <h4 key={theCountry.subregion}>{theCountry.subregion}</h4>
-                            </div>
+                                <h2 className="titleCapitalized" key={theCountry.subregion}>Subregion: {theCountry.subregion}</h2>
 
-                            <div>
-                                <h1>Area</h1>
-                                <h4 key= {theCountry.area}>{theCountry.area}km2</h4>
-                            </div>
+                                <h2 className="titleCapitalized" key= {theCountry.area}>Area: {theCountry.area}Km²</h2>
 
-                            <div>
-                                <h1>Poblacion</h1>
-                                <h4 key = {theCountry.population}>{theCountry.population}</h4>
+                                <h2 className="titleCapitalized" key = {theCountry.population}>Poblacion: {theCountry.population}</h2>
                             </div>
                         </section>
                     </div>
@@ -70,7 +58,7 @@ export default function Detail(props) {
             </section>
 
             <section>
-                <h1>Actividades</h1>
+                <h2 className="titleDetail">Actividades</h2>
                 {theCountry.name && (
                     <div>
                         <section>
