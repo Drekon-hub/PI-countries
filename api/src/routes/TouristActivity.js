@@ -4,36 +4,32 @@ const { TouristActivity, Country } = require('../db.js');
 
 const router = Router();
 
-
 router.post('/activities', async (req, res) => {
-  const { name, difficulty, duration, season, countryId } = req.body;
+  const { name, difficulty, duration, season, countries } = req.body;
 
-  if(!name || !difficulty || !duration || !season || !countryId){
+  if(!name || !difficulty || !duration || !season || !countries){
     return res.status(404).send("Some fields need to be filled");
   }
-  try {
-    const newTouristActivity = await TouristActivity.create({
+
+    const newActivity = await TouristActivity.create({
       name,
       difficulty,
       duration,
       season,
-      countryId
+      countries
     })
-    res.status(200).json(newTouristActivity);
-    
-    //Como el id se esta generando automaticamente para la tabla, busco la tabla y obtengo el id de touristAct
-    const getId = await TouristActivity.findAll({
-      where: { name: name }
-    })
+    const activityDb = await Country.findAll({
+      where: {
+          name: countries,  //No me lo toma por el id, pero por el nombre sí.
+      }
+  })
+  newActivity.addCountry(activityDb)  
+  // console.log("");
+res.json({msg: "Se ha creado la actividad con éxito!!!"})
+}
+    // const country = await Country.findByPk(countries);
+    // await country.addTouristActivity(getId);
 
-    // transfer
-    const country = await Country.findByPk(countryId);
-    // await country.addTouristActivity(getId[0].dataValues.id);
-    await country.addTouristActivity(getId);
-
-  } catch (error) {
-    res.send(error);
-  }
-});
+);
   
 module.exports = router;
