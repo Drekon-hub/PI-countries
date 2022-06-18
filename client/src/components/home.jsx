@@ -3,17 +3,18 @@ import './Home.css'
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../redux/actions/actions.js";
+import { getCountries, filterCountriesByContinent, orderByName, orderByPopulation } from "../redux/actions/actions.js";
 import Card from "./CountryCard";
 import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
+import FiltroActivity from "./FiltroActivity";
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 export default function Home() {
 
   //! estos son mis hoocks------------------------------
   const dispatch = useDispatch();
-  useEffect(() => dispatch(getCountries()), []);
+  useEffect(() => dispatch(getCountries()), [dispatch]);
   const pais = useSelector((state) => state.countries);
   //!---------------------------------------------------
 
@@ -48,11 +49,84 @@ export default function Home() {
   const nextPage = () => {
     if (currentPage < (Math.ceil(pais.length/countries))) setCurrentPage(currentPage+1) 
   }
+  //!--------------------------------------------------
+
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(getCountries())
+  }
+
+  function handleFilterByContinent(e){
+    e.preventDefault();
+    dispatch(filterCountriesByContinent(e.target.value));
+  }
+
+  function handleOrderAzZa(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrder(`Ordenado ${e.target.value}`);
+  }
+
+  function handleOrderByPopulation(e) {
+    e.preventDefault();
+    dispatch(orderByPopulation(e.target.value));
+    setCurrentPage(1);
+    setOrder(`Ordenado ${e.target.value}`);
+  }
+  //!--------------------------------------------------
 
   return (
     <div>
+
+      <div>
+        <h3>ACTIVIDADES</h3>
+        <FiltroActivity setCurrentPage={setCurrentPage} setOrder={setOrder} />
+      </div>
+
+      <div>
+        <h3>CONTINENTE</h3>
+          <select onChange={e => handleFilterByContinent(e)}>
+            <option value="All" key="All">Todos</option>
+            <option value="Africa" key="Africa">Africa</option>
+            <option value="North America" key="North America">North America</option>
+            <option value="South America" key="South America">South America</option>
+            <option value="Asia" key="Asia">Asia</option>
+            <option value="Europe" key="Europe">Europa</option>
+            <option value="Oceania" key="Oceania">Oceania</option>
+          </select>
+      </div>
+
+      <button onClick={e => handleClick(e)}>
+        Cargar todos los países
+      </button>
+
+      <div>
+        <h3>POBLACIÓN</h3>
+        <select onChange={e => handleOrderByPopulation(e)}>
+          <option value="">-</option>
+          <option value="mayor">Mayor poblacion</option>
+          <option value="menor">Menor poblacion</option>
+        </select>
+      </div>
+
+      <div>
+        <h3>ORDEN ALFABÉTICO</h3>
+          <select onChange ={e => handleOrderAzZa(e)}>
+            <option value="">-</option> 
+            <option value="asc">Ascendente</option>
+            <option value="desc">Descendente</option>
+          </select>
+      </div>
+
       <p>༼ つ✿ ◕_◕ ༽つCountries</p>
+
       <SearchBar/>
+
+      <Link to={'/activities'}>
+        <button>Crear actividad</button>
+      </Link>
+
       <Paginado
         countries={countries}
         pais={pais.length}
@@ -62,7 +136,9 @@ export default function Home() {
         prevPage={prevPage}
         nextPage={nextPage}
       />
+
       <p><strong>Estás en la página: "{currentPage}"</strong></p>
+
       <div className="container_cards">
         {
         country?.map((d) => {

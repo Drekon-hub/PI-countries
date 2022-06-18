@@ -45,11 +45,41 @@ export function postActivities(payload){
     }
 }
 
-// export function getActivities(){
-//     return async function (dispatch){
+export function filterCountriesByContinent(payload){
+    return {
+        type: 'FILTER_BY_CONTINENT',
+        payload
+    }
+}
 
-//     }
-// }
+export function filterActivity(payload){
+    return{
+        type: 'FILTER_ACTIVITY',
+        payload
+    }
+}
 
-// export const GET_COUNTRIES = "GET_COUNTRIES"; //todos los paises
-// export const GET_ACTIVITIES = "GET_ACTIVITIES"; //todas las actividades que voy creando
+export function orderByName(payload){
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}
+
+export function orderByPopulation (payload){
+    return {
+        type: 'ORDER_BY_POPULATION',
+        payload
+    }
+}
+
+export function getActivities() {
+    return async function(dispatch) {
+        var json = await axios("http://localhost:3001/countries/allActivities")
+        return dispatch ({
+            type: 'GET_ACTIVITIES',
+            payload: json.data
+        })
+
+    }
+}
