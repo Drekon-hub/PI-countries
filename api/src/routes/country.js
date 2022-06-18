@@ -17,6 +17,18 @@ const getDbInfo = async () => {
     })
 }
 
+const getAllActivities = async (req, res) => {
+ 
+    const allActivities = await TouristActivity.findAll();
+
+    if (allActivities) {
+      res.json(allActivities);
+    } else {
+      res.status(404).json({ message: "No se han encontrado actividades." });
+    }
+  
+};
+router.get('/countries/allActivities', getAllActivities)
 const getCountries = async () => {
     const response = await axios(`https://restcountries.com/v3/all`)
     const map = await response.data.map(a => {
