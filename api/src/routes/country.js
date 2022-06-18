@@ -1,13 +1,13 @@
 const { Router } = require('express');
 const axios = require('axios')
 
-const { Op, Country, TouristActivity } = require('../db.js');
+const { Country, TouristActivity } = require('../db.js');
 
 const router = Router();
 
 const getDbInfo = async () => {
     return await Country.findAll({
-          include: { // eagerloading de TouristActivity
+          include: { //! TouristActivity
             model: TouristActivity,
             attributes: [ 'name', 'difficulty', 'duration', 'season',],
             through: { 
@@ -29,72 +29,74 @@ const getAllActivities = async (req, res) => {
   
 };
 router.get('/countries/allActivities', getAllActivities)
-const getCountries = async () => {
-    const response = await axios(`https://restcountries.com/v3/all`)
-    const map = await response.data.map(a => {
-        const country = {
-            id: a.cca3,
-            name: a.name.common,
-            flag: a.flags[1],
-            continent: a.continents[0],
-            capital: a.capital != null ? a.capital[0] : "No data", //
-            subregion: a.subregion,
-            area: a.area,
-            population: a.population,
-            // include: TouristActivity
-        }
-        return country
+
+const CountriesDB = async() => {
+    const countriesAPI = await axios.get('https://restcountries.com/v3/all');   
+    const countries = countriesAPI.data; 
+    let comodin2 = ""
+    const cap = (capital) =>  capital ? comodin2.concat(capital) : "no hay capital" 
+    const sub = (subregion) => subregion ? subregion : "no hay subregion"
+
+    countries.forEach(async c => {
+        await Country.findOrCreate({
+            where: {
+                id: c.cca3,
+                name: c.name.common, 
+                flag: c.flags[1],
+                subregion: c.subregion,
+                continent: c.continents[0],
+                capital: cap(c.capital),
+                subregion: sub(c.subregion),
+                area: c.area,
+                population: c.population,
+            }, include: TouristActivity
+        })
     })
-    return map
-}
-
-const countriesToDb = async () => {
-    try {
-        // Se verifica si la base de datos (db) contiene informacion
-        const countries = await Country.findAll();
-        // De lo contrario ingresar informacion a la db de 
-        if(countries.length === 0) {
-            // Tomar data de paises
-            const array = await getCountries();
-            await Country.bulkCreate(array)
+    
+    const countriesReady = countries.map(country => {
+        return{
+            name: country.name.common,
+            id: country.cca3,
+            flag: country.flags[1],
+            subregion: country.subregion,
+            continent: country.continents[0],
+            capital: cap(country.capital),
+            subregion: sub(country.subregion),
+            area: country.area,
+            population: country.population,
+            include: TouristActivity
         }
-    } catch (error) {
-        console.log(error)
-    }
+    });
+    return countriesReady
 }
 
-const loadCountries = async () => { await countriesToDb() }
-loadCountries()
 
 router.get('/countries', async (req, res) => {
-    const { name } = req.query;
-    try {
-        if(!name) {
-            const countries = await Country.findAll();
+    const { name } = req.query  
+    try{
+    let allCountries = await getDbInfo();
+    if (!allCountries.length){
+        const result = await CountriesDB();
+        res.json(result)
+    } else {
+        if (!name) res.send(allCountries)
+        else {
             
-            if(countries.length) {
-                return res.status(200).json(countries);
+            let countryName = await allCountries.filter( c => c.name.toLowerCase().includes(name.toLowerCase()))
+            if (!countryName.length){
+                res.sendStatus(404)
             } else {
-                return res.status(404).send("Countries not found!");
+                res.send(countryName)
             }
-        } else {
-            const country = await Country.findAll({
-                where: {
-                    name: {[Op.substring]: name} // que incluya el texto que se nos pasa por query
-                }, include: TouristActivity
-            })
-            if(country.length) {
-                return res.status(200).json(country);
-            } else {
-                return res.status(404).send("Country not found!");
-            }
-        }    
-    } catch (error) {
-        console.log(error)
+        }
+    }   
+    }
+    catch(err){
+        res.status(404).json ({msg:err})
     }
 });
 
-// GET /countries/{idPais}:
+//! GET /countries/{idPais}:
 router.get('/countries/:idPais', async (req, res) => {
     const { idPais } = req.params;
     
@@ -104,13 +106,6 @@ router.get('/countries/:idPais', async (req, res) => {
                 id:  idPais.toUpperCase()
             }, 
              include: TouristActivity
-            // include: [{ // eagerloading de TouristActivity
-            //     model: TouristActivity,
-            //     attributes: [ 'name', 'difficulty', 'duration', 'season',],
-            //     through: { 
-            //         attributes: [], 
-            //     },
-            // }] 
         })
         if(country) {
             return res.status(200).json(country);

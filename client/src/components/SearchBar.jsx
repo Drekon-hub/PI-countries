@@ -14,6 +14,7 @@ export default function SearchBar(){
 
     function handleSubmitButton(e){
         e.preventDefault();
+        
         if(country !== "") {
             dispatch(countrySearchBar(country))
             setCountry("");
