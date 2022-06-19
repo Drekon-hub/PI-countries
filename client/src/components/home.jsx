@@ -121,7 +121,7 @@ export default function Home() {
 
       <p>༼ つ✿ ◕_◕ ༽つCountries</p>
 
-      <SearchBar/>
+      <SearchBar setCurrentPage={setCurrentPage}/>
 
       <Link to={'/activities'}>
         <button>Crear actividad</button>

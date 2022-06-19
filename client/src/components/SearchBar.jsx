@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { countrySearchBar } from "../redux/actions/actions.js";
 
-export default function SearchBar(){
+export default function SearchBar({setCurrentPage}){
     const dispatch = useDispatch();
     const [country, setCountry] = useState("");
 
@@ -14,7 +14,7 @@ export default function SearchBar(){
 
     function handleSubmitButton(e){
         e.preventDefault();
-        
+        setCurrentPage(1)
         if(country !== "") {
             dispatch(countrySearchBar(country))
             setCountry("");
