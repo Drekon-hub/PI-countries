@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {postActivities, getCountries} from '../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
+import NavBar from "./NavBar";
 
 export default function NewActivity (){
 
@@ -112,7 +113,7 @@ export default function NewActivity (){
     }
     return (
         <section>
-           
+           <NavBar/>
            
              <section>
                 <Link to='/home'>

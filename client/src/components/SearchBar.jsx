@@ -27,7 +27,7 @@ export default function SearchBar({setCurrentPage}){
         <div>
                 <input onChange = {(e) => handleSearchInput(e)} type="text" value={country} placeholder="Search country for name" />
 
-                <button onClick = {(e) => handleSubmitButton(e)} type="submit">Search</button>
+                <button onClick = {(e) => handleSubmitButton(e)} type="submit">🔍️</button>
         </div>
     )
 }

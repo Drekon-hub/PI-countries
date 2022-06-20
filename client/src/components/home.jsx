@@ -8,6 +8,7 @@ import Card from "./CountryCard";
 import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
 import FiltroActivity from "./FiltroActivity";
+import NavBar from "./NavBar";
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 export default function Home() {
@@ -80,6 +81,9 @@ export default function Home() {
     <div>
 
       <div>
+
+        <NavBar/>
+
         <h3>ACTIVIDADES</h3>
         <FiltroActivity setCurrentPage={setCurrentPage} setOrder={setOrder} />
       </div>
@@ -114,8 +118,8 @@ export default function Home() {
         <h3>ORDEN ALFABÉTICO</h3>
           <select onChange ={e => handleOrderAzZa(e)}>
             <option value="">-</option> 
-            <option value="asc">Ascendente</option>
-            <option value="desc">Descendente</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
           </select>
       </div>
 

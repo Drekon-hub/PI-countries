@@ -53,7 +53,7 @@ function rootReducer (state = initialState, action) {
                 const onlyCountry = allCountriesAct.filter((p) => {
                     return p.TouristActivities;
                 });
-                console.log(allCountriesAct)
+                // console.log(allCountriesAct)
             
                 let array = [];
             
