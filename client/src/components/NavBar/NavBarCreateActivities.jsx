@@ -1,7 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import './NavBar.css'
-import SearchBar from './SearchBar'
+import './NavBarCreateActivities.css'
 
 
 export default function navBar({firstPage}){
@@ -20,9 +19,6 @@ export default function navBar({firstPage}){
                             Crear actividad
                         </Link>
                     </li>
-                    <li className='search-bar'>
-                        <SearchBar  firstPage={firstPage}/>
-                    </li> 
                 </ul>
 
             </nav>

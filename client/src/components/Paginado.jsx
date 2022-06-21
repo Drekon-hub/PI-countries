@@ -1,7 +1,7 @@
 import React from "react";
 import './Paginado.css'
 
-export default function Paginado ({pais,countries, country, paginado, lastPage, firstPage, nextPage, prevPage}){ 
+export default function Paginado ({currentPage,pais,countries, country, paginado, lastPage, firstPage, nextPage, prevPage}){ 
 
     const pageNumbers = []
 
@@ -13,7 +13,7 @@ export default function Paginado ({pais,countries, country, paginado, lastPage, 
         <div>
             <nav>
                 <ul className="container_page">
-                    <button onClick = { () => firstPage() }> ◄◄ </button>
+                    <button  onClick = { () => firstPage() } > ◄◄ </button>
                     <button onClick = { () => prevPage() }> ◄ </button>
 
                     {

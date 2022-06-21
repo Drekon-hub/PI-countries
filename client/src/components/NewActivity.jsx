@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {postActivities, getCountries} from '../redux/actions/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import { useEffect } from 'react';
-import NavBar from "./NavBar";
+import NavBarCreateActivities from './NavBar/NavBarCreateActivities'
 
 export default function NewActivity (){
 
@@ -12,7 +12,9 @@ export default function NewActivity (){
 
         if (!input.name){
             errors.name = "Se requiere una actividad turística"
-        } 
+        } else if (!/^[A-Za-z.\n -]+$/.test(input.name)){
+            errors.name = "Solo se admiten letras"
+        }
     
         if (!input.difficulty || input.difficulty === "-"){
             errors.difficulty = "Seleccione una dificultad"
@@ -26,6 +28,8 @@ export default function NewActivity (){
             errors.duration = "Se require el tiempo de duración";
         }else if (input.duration < 1) {
             errors.duration = "La cantidad de días no puede ser negativa ó 0";
+        }else if (!/^[0-9.\n -]+$/.test(input.duration)){
+            errors.duration = "Solo se admiten numeros"
         }
     
         if (!input.countries.length) {
@@ -95,10 +99,6 @@ export default function NewActivity (){
                 countries: []
             })
         } 
-        // else { 
-        //     e.preventDefault();
-        //     alert ('Faltan campos por completar!')
-        // }
     }
     console.log(input.countries)
     function handleDelete(country){
@@ -113,8 +113,9 @@ export default function NewActivity (){
     }
     return (
         <section>
-           <NavBar/>
-           
+            
+            <NavBarCreateActivities/>
+
              <section>
                 <Link to='/home'>
                     <button> Volver</button>
@@ -129,12 +130,12 @@ export default function NewActivity (){
                 <form onSubmit={(e)=>handleSubmit(e)}>
                     <div>
                         <label>Nombre:</label>
-                        <input onChange={(e) => handleChange(e)} type="text" value={input.name} name="name" />
+                        <input maxlength="20" onChange={(e) => handleChange(e)} type="text" value={input.name} name="name" />
                         {errors.name && (<p>{errors.name}</p>)}
                     </div>
                     <div>
                         <label>Duración:</label>
-                        <input onChange={(e) => handleChange(e)} placeholder= "Duración de la actividad..." type="text" value={input.duration} name="duration" />
+                        <input maxlength="2" onChange={(e) => handleChange(e)} placeholder= "Duración de la actividad..." type="text" value={input.duration} name="duration" />
                         {errors.duration && (<p>{errors.duration}</p>)}
                     </div>
                     <div>

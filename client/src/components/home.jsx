@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries, filterCountriesByContinent, orderByName, orderByPopulation } from "../redux/actions/actions.js";
 import Card from "./CountryCard";
-import SearchBar from "./SearchBar";
 import Paginado from "./Paginado";
 import FiltroActivity from "./FiltroActivity";
-import NavBar from "./NavBar";
+import NavBarHome from "./NavBar/NavBarHome";
 //----------------------------------------------------------------
 //----------------------------------------------------------------
 export default function Home() {
@@ -54,11 +53,13 @@ export default function Home() {
 
   function handleClick(e) {
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(getCountries())
   }
 
   function handleFilterByContinent(e){
     e.preventDefault();
+    setCurrentPage(1);
     dispatch(filterCountriesByContinent(e.target.value));
   }
 
@@ -82,7 +83,7 @@ export default function Home() {
 
       <div>
 
-        <NavBar/>
+        <NavBarHome firstPage={firstPage} handleClick={handleClick}/>
 
         <h3>ACTIVIDADES</h3>
         <FiltroActivity setCurrentPage={setCurrentPage} setOrder={setOrder} />
@@ -100,10 +101,6 @@ export default function Home() {
             <option value="Oceania" key="Oceania">Oceania</option>
           </select>
       </div>
-
-      <button onClick={e => handleClick(e)}>
-        Cargar todos los países
-      </button>
 
       <div>
         <h3>POBLACIÓN</h3>
@@ -125,13 +122,9 @@ export default function Home() {
 
       <p>༼ つ✿ ◕_◕ ༽つCountries</p>
 
-      <SearchBar setCurrentPage={setCurrentPage}/>
-
-      <Link to={'/activities'}>
-        <button>Crear actividad</button>
-      </Link>
-
       <Paginado
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
         countries={countries}
         pais={pais.length}
         paginado={paginado}
@@ -144,11 +137,11 @@ export default function Home() {
       <p><strong>Estás en la página: "{currentPage}"</strong></p>
 
       <div className="container_cards">
+
         {
         country?.map((d) => {
             return (
               <div className="card">
-              {/* <Link to={`/home/{c.id}`}> el c.id es para clickear y que me lleve al pais como tal.*/}
               <Card
                 key={d.id}
                 id={d.id}
@@ -156,11 +149,12 @@ export default function Home() {
                 flag={d.flag}
                 continent={d.continent}
               />
-              {/* </Link> */}
               </div>
             );
           })}
+
           </div>
+
         <Paginado
           countries={countries}
           pais={pais.length}

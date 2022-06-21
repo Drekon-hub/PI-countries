@@ -22,14 +22,25 @@
     text-decoration: none;
   }
 
-  a:hover:not(.active) {
-    background-color: #111;
-  }
+a:hover:not(.active) {
+  background-color: #111;
+}
 
-  a.active {
-    background-color: #04AA6D ;
-  }
+a.active {
+  background-color: #04AA6D ;
+}
 
-.search-bar{
-  float:right
+.search-button {
+  position: absolute;
+  top: 0;
+  right: 79%;
+  height: 34px;
+  width: 80px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  line-height: 4px;
+  border-width: 0;
+  background-color: #cbf3ee;
+  cursor: pointer;
 }

@@ -10,3 +10,10 @@ nav{
 .container_page li {
     list-style: none;
 }
+
+.primera1{
+    display: none;
+}
+.primera{
+    color: aliceblue;
+}
