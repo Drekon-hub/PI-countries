@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    background-color: brown;
+    margin-top: 20px;
+    padding: 20px;
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+    align-items: center;
+    box-shadow: 2px 2px 7px 1px #000000;
+  }
+  .p {
+    margin: 0;
+    font-family: -apple-system, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji';
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .filter {
+    font-family: "Ubuntu";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: -0.02em;
+
+    padding: 4px;
+    padding-left:8px;
+    position: static;
+    width: 169px;
+    height: 38px;
+    background: #adbcce;
+    border: none;
+    border-radius: 16px;
+    margin-right: 8px;
+    color: #000000;
+    }

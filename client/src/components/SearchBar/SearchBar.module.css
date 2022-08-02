@@ -1,0 +1,16 @@
+
+.input {
+  width: 80%;
+  border-radius: 50px;
+  border: none;
+  padding: 5px;
+}
+
+.button {
+  position: relative;
+  border-radius: 18%;
+  right: 32px;
+  padding-right: 3px;
+  background: white;
+  border: none;
+}

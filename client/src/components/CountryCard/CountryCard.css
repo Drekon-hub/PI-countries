@@ -1,0 +1,27 @@
+/* body {
+  background: url('../image/L3.jpg');
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.3rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+  font-size: 1.5vw;
+}
+
+.container2 {
+  display: flexbox;
+
+  margin: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px 0px;
+} */
